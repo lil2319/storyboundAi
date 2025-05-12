@@ -1,0 +1,149 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  background-image: none;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.logo {
+  width: 200px;
+  height: auto;
+}
+
+.recommendation-box {
+  border: 3px solid #ccc;
+  border-radius: 10px;
+  padding: 60px;
+  max-height: auto;
+  max-width: 400px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+  margin-top: 20px;
+  display: flex;
+}
+
+input {
+  width: 250px;
+  padding: 5px 15px;
+  margin: 5px;
+  max-width: 90%;
+  font-size: 16px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.651);
+  color: black;
+}
+
+button {
+  width: 150px;
+  margin: 5px;
+  font-size: 16px;
+  background-color: #000;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 5px 15px;
+  background: #059ef7;
+  border: 0 none;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #006aff;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+.home-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  padding-right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  justify-items: center;
+  align-items: start;
+}
+
+.covers {
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.covers img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #ffffff;
+    background-color: #ffffff;
+  }
+
+  a:hover {
+    color: #747bff;
+  }
+
+  button {
+    background-color: #f9f9f9;
+  }
+}
