@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 export default function BookCovers({ query }) {
     const [books, setBooks] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchBooks = async () => {
+            setLoading(true);
             try {
                 const response = await fetch(`https://storyboundapi.onrender.com/RecommendationPage/${query}`, {
                     method: 'POST',
@@ -43,6 +45,8 @@ export default function BookCovers({ query }) {
                 setBooks(bookResults);
             } catch (error) {
                 console.error('Error fetching books:', error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -53,20 +57,24 @@ export default function BookCovers({ query }) {
 
     return (
         <div className="card-grid">
-            {books.map((book, index) => (
-                <div key={index} className="covers">
-                    {book.coverId ? (
-                        <img
-                            src={`https://covers.openlibrary.org/b/id/${book.coverId}-M.jpg`}
-                            alt={`Cover of ${book.title}`}
-                        />
-                    ) : (
-                        <div>No cover available</div>
-                    )}
-                    <h3>{book.title}</h3>
-                    <p>{book.authors}</p>
-                </div>
-            ))}
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                books.map((book, index) => (
+                    <div key={index} className="covers">
+                        {book.coverId ? (
+                            <img
+                                src={`https://covers.openlibrary.org/b/id/${book.coverId}-M.jpg`}
+                                alt={`Cover of ${book.title}`}
+                            />
+                        ) : (
+                            <div>No cover available</div>
+                        )}
+                        <h3>{book.title}</h3>
+                        <p>{book.authors}</p>
+                    </div>
+                ))
+            )}
         </div>
     );
 }
