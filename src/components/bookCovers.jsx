@@ -22,19 +22,19 @@ export default function BookCovers({ query }) {
 
                 const bookPromises = similarBookISBNs.map(async (isbn) => {
                     try {
-                        const bookResponse = await fetch(`https://openlibrary.org/search.json?isbn=${isbn}`);
+                        const bookResponse = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);
                         const bookData = await bookResponse.json();
-                        const book = bookData.docs?.[0];
+                        const book = bookData.items?.[0]?.volumeInfo;
 
                         return {
-                            coverId: book?.cover_i || null,
+                            coverUrl: book?.imageLinks?.thumbnail || null,
                             title: book?.title || 'No Title Available',
-                            authors: book?.author_name?.join(', ') || 'No Author Available',
+                            authors: book?.authors?.join(', ') || 'No Author Available',
                         };
                     } catch (error) {
                         console.error(`Error fetching book with ISBN ${isbn}:`, error);
                         return {
-                            coverId: null,
+                            coverUrl: null,
                             title: 'Error loading title',
                             authors: 'Error loading author',
                         };
@@ -62,9 +62,9 @@ export default function BookCovers({ query }) {
             ) : (
                 books.map((book, index) => (
                     <div key={index} className="covers">
-                        {book.coverId ? (
+                        {book.coverUrl ? (
                             <img
-                                src={`https://covers.openlibrary.org/b/id/${book.coverId}-M.jpg`}
+                                src={book.coverUrl}
                                 alt={`Cover of ${book.title}`}
                             />
                         ) : (
