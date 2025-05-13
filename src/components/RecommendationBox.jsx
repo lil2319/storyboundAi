@@ -11,6 +11,12 @@ export default function RecommendationBox() {
         }
     };
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleClick();
+        }
+    };
+
     return (
         <div className="recommendation-box">
             <h2>AI-Powered Book Recommendations</h2>
@@ -23,6 +29,7 @@ export default function RecommendationBox() {
                     placeholder="Enter a book..."
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
                 />
                 <button onClick={handleClick}>Recommend</button>
             </div>
