@@ -1,20 +1,47 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import Header from '../components/Header.jsx';
-import BookCovers from '../components/BookCovers.jsx';
+import React, { useState } from 'react';
+import BookCovers from '../components/bookCovers';
+import { FloatingLabelInput } from '../components/FloatingLabelInput';
+import './recommendationPage.css';
+import HeaderSimple from '../components/Header';
 
-export default function RecommendationPage() {
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const query = queryParams.get('query') || '';
+export default function BookRecommendationPage() {
+    const [searchQuery, setSearchQuery] = useState('');
+    const [submittedQuery, setSubmittedQuery] = useState('');
+    const [focused, setFocused] = useState(false);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setSubmittedQuery(searchQuery.trim());
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            setSubmittedQuery(searchQuery.trim());
+        }
+    };
+
 
     return (
         <div>
-            <Header />
-            <main>
-                <h1>Recommendations for you</h1>
-                <BookCovers query={query} />
-            </main>
+            <HeaderSimple />
+            <div className="recommendation-container">
+                <h2>Enter a book title to get recommendations for similar books</h2>
+                <form onSubmit={handleSubmit} className="search-form">
+                    <FloatingLabelInput
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.currentTarget.value)}
+                        onFocus={() => setFocused(true)}
+                        onBlur={() => setFocused(false)}
+                        onKeyDown={handleKeyDown}
+                    />
+                    <button type="submit" className="search-button">
+                        Search
+                    </button>
+                </form>
+
+                {submittedQuery && <BookCovers query={submittedQuery} />}
+            </div>
         </div>
     );
 }

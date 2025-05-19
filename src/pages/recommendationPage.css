@@ -1,0 +1,23 @@
+.recommendation-container {
+    padding: 1rem;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.search-button {
+    padding: 0.25rem 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    height: 32px;
+}
+
+
+.search-button:hover {
+    background-color: #357ac9;
+}

@@ -1,16 +1,50 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom'
-import logo from '../assets/storyBound.png';
+import { useState } from 'react';
+import { Burger, Container, Group } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import classes from './HeaderSimple.module.css';
+import logo from '../assets/storyBoundLogo.png';
+import { ActionToggle } from './ActionToggle';
+import { Link } from 'react-router-dom';
 
-export default function Header() {
-    const location = useLocation();
-    const isHomePage = location.pathname === "/";
+
+
+const links = [
+    { link: '/', label: 'Home' },
+];
+
+export default function HeaderSimple() {
+    const [opened, { toggle }] = useDisclosure(false);
+    const [active, setActive] = useState(links[0].link);
+
+    const items = links.map((link) => (
+        <Link
+            key={link.label}
+            to={link.link}
+            className={classes.link}
+            data-active={active === link.link || undefined}
+            onClick={() => setActive(link.link)}
+        >
+            {link.label}
+        </Link>
+    ));
+
+
     return (
-        <header className="header">
-            <img src={logo} alt="Storybound.ai logo" className="logo" />
-            {!isHomePage && (
-                <Link to="/" className="home-link">Home</Link>
-            )}
+        <header className={classes.header}>
+            <Container size="md" className={classes.inner}>
+                <div className={classes.logoContainer}>
+                    <img src={logo} alt="Storybound Logo" className={classes.logo} />
+                    <span className={classes.logoText}>Storybound.ai</span>
+                </div>
+
+                <Group gap={5} visibleFrom="xs">
+                    {items}
+                    <ActionToggle />
+                </Group>
+
+                <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
+            </Container>
+
         </header>
     );
 }
